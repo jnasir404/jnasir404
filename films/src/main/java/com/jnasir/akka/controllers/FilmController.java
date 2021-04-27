@@ -2,15 +2,16 @@ package com.jnasir.akka.controllers;
 
 import akka.actor.ActorRef;
 import akka.pattern.Patterns;
+import com.jnasir.akka.Models.FilmAddMessage;
+import com.jnasir.akka.Models.Films;
 import com.jnasir.akka.Models.FilmModel;
-import com.jnasir.akka.messages.filmMessageBox.FilmAddMessage;
-import com.jnasir.akka.messages.filmMessageBox.FilmDeleteMessage;
-import com.jnasir.akka.messages.filmMessageBox.FilmGetMessage;
-import com.jnasir.akka.messages.filmMessageBox.FilmUpdateMessage;
+import com.jnasir.akka.messages.filmMessageBox.*;
+import com.jnasir.akka.repository.FilmActorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -19,15 +20,27 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.net.URISyntaxException;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @RestController
 @RequestMapping("/films")
+
 public class FilmController {
 
     @Autowired()
     @Qualifier("FilmActor")
     ActorRef filmActor;
 
+
+    @GetMapping("/getDbFilms") // Get All films
+    public List<Films> getAllFilmsFromDB() {
+        Object result = Patterns.ask(filmActor, new Films(), Duration.ofMillis(2000)).toCompletableFuture().join();
+        return (List<Films>) result;
+    }
+
+    /*
     @GetMapping("/") // Get All films
     public ModelAndView getAllFilms() {
         ModelAndView modelAndView = new ModelAndView();
@@ -38,13 +51,12 @@ public class FilmController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}") // Get film by Id
-    public ModelAndView getFilm(@PathVariable String id) {
+    public ModelAndView getFilm(@PathVariable Integer id) {
         ModelAndView modelAndView = new ModelAndView();
         Object film = Patterns.ask(filmActor, new FilmGetMessage(id), Duration.ofMillis(2000)).toCompletableFuture().join();
         modelAndView.addObject("f", film);
         modelAndView.setViewName("film"); // resources/template/register.html
         return modelAndView;
-
     }
 
     @GetMapping("/create") // Get All films
@@ -61,7 +73,7 @@ public class FilmController {
      //   public ModelAndView addNewFilm(@Valid ArrayList<FilmModel> films, BindingResult bindingResult, ModelMap modelMap) {
         ModelAndView modelAndView = new ModelAndView();
         // Check for the validations
-        FilmModel films = (FilmModel) Patterns.ask(filmActor, new FilmAddMessage(film), Duration.ofMillis(2000)).toCompletableFuture().join();
+        Films films = (Films) Patterns.ask(filmActor, new FilmAddMessage(film), Duration.ofMillis(2000)).toCompletableFuture().join();
         modelAndView.addObject("successMessage", "Film is added successfully!");
 
         modelAndView.addObject("film", new FilmModel());
@@ -72,7 +84,7 @@ public class FilmController {
     @RequestMapping(method = RequestMethod.PUT, value = "/add/{id}") // Update a Film
     public Object updateFilm(@RequestBody FilmModel filmModel, @PathVariable String id) throws URISyntaxException {
         try {
-            return Patterns.ask(filmActor, new FilmUpdateMessage(filmModel), Duration.ofMillis(2000)).toCompletableFuture().join();
+            return Patterns.ask(filmActor, new FilmUpdateMessage(Films), Duration.ofMillis(2000)).toCompletableFuture().join();
 
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
@@ -88,9 +100,10 @@ public class FilmController {
         }
     }
 
+    */
+
     private <T> T ask(ActorRef actor, Object msg, Class<T> returnTypeClass) {
         return (T) Patterns.ask(actor, msg, Duration.ofMillis(2000)).toCompletableFuture().join();
     }
-
 
 }

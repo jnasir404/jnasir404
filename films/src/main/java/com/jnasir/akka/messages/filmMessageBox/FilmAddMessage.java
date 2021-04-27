@@ -1,9 +1,14 @@
-package com.jnasir.akka.messages.filmMessageBox;
+package com.jnasir.akka.Models;
 
-import com.jnasir.akka.Models.FilmModel;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 public class FilmAddMessage {
-    private String id;
+
+    private Integer id;
     private String userid;
     private String name;
     private String description;
@@ -14,7 +19,8 @@ public class FilmAddMessage {
     private String genre;
     private String photo;
 
-    public String getId() {
+
+    public Integer getId() {
         return id;
     }
 
@@ -26,7 +32,7 @@ public class FilmAddMessage {
         this.userid = userid;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -95,10 +101,10 @@ public class FilmAddMessage {
     }
 
     public FilmAddMessage(){}
-    public FilmAddMessage(String id, String userid, String name, String description, String release_Date, String rating, String ticketPrice, String country, String genre, String photo) {
+    public FilmAddMessage(Integer id, String userid, String name, String description, String release_Date, String rating, String ticketPrice, String country, String genre, String photo) {
         super();
         this.id = id;
-        this.userid = userid;
+        this.userid= userid;
         this.name = name;
         this.description = description;
         this.release_Date = release_Date;
@@ -108,17 +114,4 @@ public class FilmAddMessage {
         this.genre = genre;
         this.photo = photo;
     }
-    public FilmAddMessage(FilmModel film) {
-        this.id = film.getId();
-        this.userid = film.getUserid();
-        this.name = film.getName();
-        this.description = film.getDescription();
-        this.release_Date = film.getRelease_Date();
-        this.rating = film.getRating();
-        this.ticketPrice = film.getTicketPrice();
-        this.country = film.getCountry();
-        this.genre = film.getGenre();
-        this.photo = film.getPhoto();
-    }
-
 }

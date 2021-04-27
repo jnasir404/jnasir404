@@ -1,24 +1,52 @@
-package com.jnasir.akka.messages.filmMessageBox;
+package com.jnasir.akka.Models;
 
-import com.jnasir.akka.Models.FilmModel;
 
-public class FilmUpdateMessage {
+import org.hibernate.annotations.GenericGenerator;
 
-    private Integer id;
+import javax.persistence.*;
+
+@Entity
+public class Films {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+
+    @Column(name = "film_id")
+    private String film_id;
+
+    @Column(name = "userid")
     private String userid;
+    @Column(name = "name")
     private String name;
+    @Column(name = "description",length = 2000)
     private String description;
+    @Column(name = "release_Date")
     private String release_Date;
+    @Column(name = "rating")
     private String rating;
+    @Column(name = "ticketPrice")
     private String ticketPrice;
+    @Column(name = "country")
     private String country;
+    @Column(name = "genre")
     private String genre;
+    @Column(name = "photo")
     private String photo;
 
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
+
+    public String getFilm_id() {
+        return film_id;
+    }
+
+    public void setFilm_id(String film_id) {
+        this.film_id = film_id;
+    }
+
 
     public String getUserid() {
         return userid;
@@ -28,7 +56,7 @@ public class FilmUpdateMessage {
         this.userid = userid;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -96,10 +124,11 @@ public class FilmUpdateMessage {
         this.photo = photo;
     }
 
-    public FilmUpdateMessage(){}
-    public FilmUpdateMessage(Integer id, String userid, String name, String description, String release_Date, String rating, String ticketPrice, String country, String genre, String photo) {
+    public Films(){}
+
+    public Films(String film_id,String userid, String name, String description, String release_Date, String rating, String ticketPrice, String country, String genre, String photo) {
         super();
-        this.id = id;
+        this.film_id = film_id;
         this.userid= userid;
         this.name = name;
         this.description = description;

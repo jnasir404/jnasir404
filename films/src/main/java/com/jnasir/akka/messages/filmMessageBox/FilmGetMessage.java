@@ -1,7 +1,8 @@
 package com.jnasir.akka.messages.filmMessageBox;
 
 public class FilmGetMessage {
-    private String id;
+
+    private Integer id;
     private String userid;
     private String name;
     private String description;
@@ -12,7 +13,8 @@ public class FilmGetMessage {
     private String genre;
     private String photo;
 
-    public String getId() {
+
+    public Integer getId() {
         return id;
     }
 
@@ -24,7 +26,7 @@ public class FilmGetMessage {
         this.userid = userid;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -93,10 +95,10 @@ public class FilmGetMessage {
     }
 
     public FilmGetMessage(){}
-    public FilmGetMessage(String id, String userid, String name, String description, String release_Date, String rating, String ticketPrice, String country, String genre, String photo) {
+    public FilmGetMessage(Integer id, String userid, String name, String description, String release_Date, String rating, String ticketPrice, String country, String genre, String photo) {
         super();
         this.id = id;
-        this.userid = userid;
+        this.userid= userid;
         this.name = name;
         this.description = description;
         this.release_Date = release_Date;
@@ -105,10 +107,6 @@ public class FilmGetMessage {
         this.country = country;
         this.genre = genre;
         this.photo = photo;
-    }
-
-    public FilmGetMessage(String id){
-        this.id = id;
     }
 
 }

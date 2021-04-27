@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class FilmModel {
-    private String id;
+    private Integer id;
     private String userid;
     private String name;
     private String description;
@@ -15,7 +15,7 @@ public class FilmModel {
     private String genre;
     private String photo;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -27,7 +27,7 @@ public class FilmModel {
         this.userid = userid;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -96,7 +96,7 @@ public class FilmModel {
     }
 
     public FilmModel(){}
-    public FilmModel(String id, String userid, String name, String description, String release_Date, String rating, String ticketPrice, String country, String genre, String photo) {
+    public FilmModel(Integer id, String userid, String name, String description, String release_Date, String rating, String ticketPrice, String country, String genre, String photo) {
         super();
         this.id = id;
         this.userid= userid;

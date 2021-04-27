@@ -3,7 +3,8 @@ package com.jnasir.akka.messages.filmMessageBox;
 import com.jnasir.akka.Models.FilmModel;
 
 public class FilmDeleteMessage {
-    private String id;
+
+    private Integer id;
     private String userid;
     private String name;
     private String description;
@@ -14,7 +15,8 @@ public class FilmDeleteMessage {
     private String genre;
     private String photo;
 
-    public String getId() {
+
+    public Integer getId() {
         return id;
     }
 
@@ -26,7 +28,7 @@ public class FilmDeleteMessage {
         this.userid = userid;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -95,10 +97,10 @@ public class FilmDeleteMessage {
     }
 
     public FilmDeleteMessage(){}
-    public FilmDeleteMessage(String id, String userid, String name, String description, String release_Date, String rating, String ticketPrice, String country, String genre, String photo) {
+    public FilmDeleteMessage(Integer id, String userid, String name, String description, String release_Date, String rating, String ticketPrice, String country, String genre, String photo) {
         super();
         this.id = id;
-        this.userid = userid;
+        this.userid= userid;
         this.name = name;
         this.description = description;
         this.release_Date = release_Date;
@@ -108,18 +110,5 @@ public class FilmDeleteMessage {
         this.genre = genre;
         this.photo = photo;
     }
-    public FilmDeleteMessage(FilmModel film) {
-        this.id = film.getId();
-        this.userid = film.getUserid();
-        this.name = film.getName();
-        this.description = film.getDescription();
-        this.release_Date = film.getRelease_Date();
-        this.rating = film.getRating();
-        this.ticketPrice = film.getTicketPrice();
-        this.country = film.getCountry();
-        this.genre = film.getGenre();
-        this.photo = film.getPhoto();
-    }
-
 
 }
