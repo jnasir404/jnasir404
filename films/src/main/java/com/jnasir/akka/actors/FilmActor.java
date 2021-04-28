@@ -5,6 +5,7 @@ import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.japi.pf.ReceiveBuilder;
 import com.jnasir.akka.Models.Films;
+import com.jnasir.akka.messages.filmMessageBox.FilmGetMessage;
 import com.jnasir.akka.repository.FilmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -44,12 +45,19 @@ public class FilmActor extends AbstractActor {
     @Override
     public Receive createReceive() {
         return ReceiveBuilder.create()
-                /*
+
+                .match(Films.class, msg -> {
+                    sender = sender();
+                    boolean result = seedFilms(msg);
+                    sender.tell(result, self());
+                })
+
                 .match(FilmGetMessage.class, msg -> {
                     sender = sender();
                     Object result = getFilms(msg);
                     sender.tell(result, self());
                 })
+                /*
                 .match(FilmAddMessage.class, msg -> {
                     sender = sender();
                     Films result = addFilm(msg);
@@ -65,23 +73,46 @@ public class FilmActor extends AbstractActor {
                     List<Films> result = deleteFilm(msg);
                     sender.tell(result, self());
                 })*/
-                .match(Films.class, msg -> {
-                    sender = sender();
-                    List<Films> result = addSeedFilmsMessage(msg);
-                    sender.tell(result, self());
-                })
+
 
                 .build();
     }
 
-    private List<Films> addSeedFilmsMessage(Films msg) {
-        Films f = new Films("id1", "userid1", "Updated Working Woman", "Working Woman is a 2018 Israeli drama film directed by Michal Aviad.[1] It was screened in the Contemporary World Cinema section at the 2018 Toronto International Film Festival.", "release_Date", "5", "ticketPrice", "country", "genre", "thumb4.jpg");
-        filmRepository.create(f);
+    //Add films to DB
+    private boolean seedFilms(Films msg) {
+         return filmRepository.create(films);
+    }
+    //Get Films
+    private Object getFilms(FilmGetMessage msg) {
+        if(msg.getId() == null){
+            return filmRepository.getFilms();
+        }else{
+            return filmRepository.find(msg.getId().toString());
+        }
 
-        return films;
+
     }
 /*
-    //Add User
+
+
+//Get Films
+    private Object getFilms(FilmGetMessage msg) {
+        Object filmObj = new Films();
+        if (msg.getId() == null) {
+            return films;
+        } else {
+            for (int i = 0; i < films.size(); i++) {
+                Films film = films.get(i);
+                if (film.getId().equals(msg.getId())) {
+                    filmObj = film;
+                }
+            }
+            return filmObj;
+        }
+    }
+
+
+    //Add Film
     private Films addFilm(FilmAddMessage msg) {
         Films film = new Films();
         //film.setId(""+films.size()+1);
@@ -123,7 +154,7 @@ public class FilmActor extends AbstractActor {
         return film;
     }
 
-    //Delete user
+    //Delete film
     private List<Films> deleteFilm(FilmDeleteMessage msg) {
         for (int i = 0; i < films.size(); i++) {
             Films f = films.get(i);
@@ -132,21 +163,6 @@ public class FilmActor extends AbstractActor {
             }
         }
         return films;
-    }
-
-    //Get User
-    private Object getFilms(FilmGetMessage msg) {
-        Object filmObj = new FilmModel();
-        if (msg.getId() == null) {
-            return films;
-        } else {
-            for (int i = 0; i < films.size(); i++) {
-                Films film = films.get(i);
-                if (film.getId().equals(msg.getId())) {
-                    filmObj = film;
-                }
-            }
-            return filmObj;
-        }
     }*/
+
 }

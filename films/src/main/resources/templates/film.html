@@ -66,30 +66,30 @@
                 <div class="row">
                     <tr th:each="film, custStat : ${f}">
                         <div class="col-md-4">
-                            <figure><img th:src="@{'/css/images/'+ ${film.photo}}"></figure>
+                            <figure><img th:src="@{'/css/images/'+ ${film.get('photo')}}"></figure>
                         </div>
                         <div class="col-md-8">
                             <p class="leading">
-                            <td th:inline=text>[[${film.name}]]</td>
+                            <td th:inline=text>[[${film.get('name')}]]</td>
                             </p>
                             <p>
-                            <td th:inline=text>[[${film.description}]]</td>
+                            <td th:inline=text>[[${film.get('description')}]]</td>
                             </p>
 
                             <p><b>Release Date:</b> </h2>
-                            <td th:inline=text>[[${film.release_Date}]]</td>
+                            <td th:inline=text>[[${film.get('release_Date')}]]</td>
                             </p>
                             <p><b>Rating:</b>
-                            <td th:inline=text>[[${film.rating}]]</td>
+                            <td th:inline=text>[[${film.get('rating')}]]</td>
                             </p>
                             <p><b>Ticket Price:</b>
-                            <td th:inline=text>[[${film.ticketPrice}]]</td>
+                            <td th:inline=text>[[${film.get('ticketPrice')}]]</td>
                             </p>
                             <p><b>Country:</b>
-                            <td th:inline=text>[[${film.country}]]</td>
+                            <td th:inline=text>[[${film.get('country')}]]</td>
                             </p>
                             <p><b>Genre:</b>
-                            <td th:inline=text>[[${film.genre}]]</td>
+                            <td th:inline=text>[[${film.get('genre')}]]</td>
                             </p>
                             <div class="contact-form">
 

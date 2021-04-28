@@ -72,15 +72,15 @@
                     <tr th:each="film, custStat : ${f}">
                         <div class="movie">
                             <figure class="movie-poster">
-                                <img th:src="@{'/css/images/'+ ${film.photo}}">
+                                <img th:src="@{'/css/images/'+ ${film.get('photo')}}">
                             </figure>
                             <div class="movie-title">
-                               <a th:href=@{${film.id}}+'-'+@{${film.name}} >
-                                    <td th:inline=text>[[${film.name}]]</td>
+                               <a th:href=@{${film.get('id')}}+'-'+@{${film.get('name')}} >
+                                    <td th:inline=text>[[${film.get('name')}]]</td>
                                 </a>
                             </div>
                             <p>
-                            <td th:inline=text>[[${film.description}]]</td>
+                            <td th:inline=text>[[${film.get('description')}]]</td>
                             </p>
                         </div>
                     </tr>

@@ -1,8 +1,10 @@
 package com.jnasir.akka.messages.filmMessageBox;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 public class FilmGetMessage {
 
-    private Integer id;
+    private String id;
     private String userid;
     private String name;
     private String description;
@@ -14,7 +16,7 @@ public class FilmGetMessage {
     private String photo;
 
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
@@ -26,7 +28,7 @@ public class FilmGetMessage {
         this.userid = userid;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -95,7 +97,13 @@ public class FilmGetMessage {
     }
 
     public FilmGetMessage(){}
-    public FilmGetMessage(Integer id, String userid, String name, String description, String release_Date, String rating, String ticketPrice, String country, String genre, String photo) {
+
+    public FilmGetMessage(String id){
+        super();
+        this.id = id;
+    }
+
+    public FilmGetMessage(String id, String userid, String name, String description, String release_Date, String rating, String ticketPrice, String country, String genre, String photo) {
         super();
         this.id = id;
         this.userid= userid;

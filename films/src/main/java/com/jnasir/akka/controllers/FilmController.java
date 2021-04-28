@@ -2,27 +2,15 @@ package com.jnasir.akka.controllers;
 
 import akka.actor.ActorRef;
 import akka.pattern.Patterns;
-import com.jnasir.akka.Models.FilmAddMessage;
 import com.jnasir.akka.Models.Films;
-import com.jnasir.akka.Models.FilmModel;
-import com.jnasir.akka.messages.filmMessageBox.*;
-import com.jnasir.akka.repository.FilmActorRepository;
+import com.jnasir.akka.messages.filmMessageBox.FilmGetMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
-import java.net.URISyntaxException;
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 @RestController
 @RequestMapping("/films")
@@ -34,13 +22,13 @@ public class FilmController {
     ActorRef filmActor;
 
 
-    @GetMapping("/getDbFilms") // Get All films
-    public List<Films> getAllFilmsFromDB() {
+    @GetMapping("/seedFilms") // Get All films
+    public Object getAllFilmsFromDB() {
         Object result = Patterns.ask(filmActor, new Films(), Duration.ofMillis(2000)).toCompletableFuture().join();
-        return (List<Films>) result;
+        return result;
     }
 
-    /*
+
     @GetMapping("/") // Get All films
     public ModelAndView getAllFilms() {
         ModelAndView modelAndView = new ModelAndView();
@@ -50,6 +38,16 @@ public class FilmController {
         return modelAndView;
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}") // Get film by Id
+    public ModelAndView getFilm(@PathVariable String id) {
+        ModelAndView modelAndView = new ModelAndView();
+        Object film = Patterns.ask(filmActor, new FilmGetMessage(id), Duration.ofMillis(2000)).toCompletableFuture().join();
+        modelAndView.addObject("f", film);
+        modelAndView.setViewName("film"); // resources/template/register.html
+        return modelAndView;
+    }
+
+ /*
     @RequestMapping(method = RequestMethod.GET, value = "/{id}") // Get film by Id
     public ModelAndView getFilm(@PathVariable Integer id) {
         ModelAndView modelAndView = new ModelAndView();
