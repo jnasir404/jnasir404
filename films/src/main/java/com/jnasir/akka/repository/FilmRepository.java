@@ -33,6 +33,24 @@ public class FilmRepository {
     }
 
 
+    public boolean addFilm(Films films) {
+        final EntityManager entityManager = EntityManagerFactoryUtil.getInstance().createEntityManager();
+        try {
+                entityManager.getTransaction().begin();
+                entityManager.persist(films);
+                entityManager.getTransaction().commit();
+        }catch (Exception e){
+            System.out.println("Error while inserting film: "+e);
+            return false;
+        }
+        finally {
+            entityManager.close();
+        }
+        return true;
+    }
+
+
+
     public Object getFilms() {
         final EntityManager entityManager = EntityManagerFactoryUtil.getInstance().createEntityManager();
         List<Tuple> rows =null;

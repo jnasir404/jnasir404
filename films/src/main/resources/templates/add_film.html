@@ -76,16 +76,24 @@
 
                                     <p><input type="submit" value="Add Film " name="Submit"></p>
 
-
                                 </form>
 
                             </div>
-                        </div>
+                           </div>
                         <div class="col-md-7 col-md-offset-1">
                             <img alt="Avatar" border-radius="9px" background="#0b1c3a" padding="3px"
                                  th:src="@{/css/images/addFilm2.jpg}">
                         </div>
                     </div>
+                    <span th:utext="${successMessage}"></span>
+                    <div class="alert alert-success alert-dismissible col-sm-12"
+                        th:if="${(bindingResult != null && bindingResult.getAllErrors() != null)}">
+                       <!--  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button> -->
+                        <ul th:each="data : ${bindingResult.getAllErrors()}">
+                            <li th:text="${data.getDefaultMessage()}"></li>
+                        </ul>
+                    </div>
+
                 </div>
             </div>
         </div> <!-- .container -->
@@ -172,68 +180,68 @@
         var country = document.forms["add-film-form"]["country"];
         var genre = document.forms["add-film-form"]["genre"];
         var description = document.forms["add-film-form"]["description"];
+        /*
+                if (name.value == "") {
+                    window.alert("Please enter film name.");
+                    name.focus();
+                    return false;
+                }
 
-        if (name.value == "") {
-            window.alert("Please enter film name.");
-            name.focus();
-            return false;
-        }
+                if (year.value == "") {
+                    window.alert("Please enter film year.");
+                    year.focus();
+                    return false;
+                }
 
-        if (year.value == "") {
-            window.alert("Please enter film year.");
-            year.focus();
-            return false;
-        }
+                if (rating.value == "") {
+                    window.alert("Please enter a film rating.");
+                    rating.focus();
+                    return false;
+                }
 
-        if (rating.value == "") {
-            window.alert("Please enter a film rating.");
-            rating.focus();
-            return false;
-        }
-
-        if (country.value == "") {
-            window.alert(
-                "Please enter your film country.");
-            country.focus();
-            return false;
-        }
-        if (genre.value == "") {
-            window.alert("Please enter film genre");
-            genre.focus();
-            return false;
-        }
-        if (description.value == "") {
-            window.alert("Please enter film description");
-            description.focus();
-            return false;
-        }
+                if (country.value == "") {
+                    window.alert(
+                        "Please enter your film country.");
+                    country.focus();
+                    return false;
+                }
+                if (genre.value == "") {
+                    window.alert("Please enter film genre");
+                    genre.focus();
+                    return false;
+                }
+                if (description.value == "") {
+                    window.alert("Please enter film description");
+                    description.focus();
+                    return false;
+                }
 
 
-/*
-        if(country.value.match(/^[A-Za-z]+$/)){
-            window.alert("Please enter alphabets only.");
-            country.focus();
-            return false;
-        }
 
-        if(year.value.match("^\d{4}$")){
-            window.alert("Film name require only year");
-            year.focus();
-            return false;
-        }
+                if(country.value.match(/^[A-Za-z]+$/)){
+                    window.alert("Please enter alphabets only.");
+                    country.focus();
+                    return false;
+                }
 
-         if (description.value.match(/^[A-Za-z]+$/)) {
-            window.alert( "Please enter alphabets only.");
-            description.focus();
-            return false;
-        }
+                if(year.value.match("^\d{4}$")){
+                    window.alert("Film name require only year");
+                    year.focus();
+                    return false;
+                }
 
-        if (genre.value.match()) {
-            window.alert( "Please enter alphabets only.");
-            genre.focus();
-            return false;
-        }
-        */
+                 if (description.value.match(/^[A-Za-z]+$/)) {
+                    window.alert( "Please enter alphabets only.");
+                    description.focus();
+                    return false;
+                }
+
+                if (genre.value.match()) {
+                    window.alert( "Please enter alphabets only.");
+                    genre.focus();
+                    return false;
+                }
+                */
 
         return true;
     }

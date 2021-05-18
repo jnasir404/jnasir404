@@ -2,13 +2,18 @@ package com.jnasir.akka.controllers;
 
 import akka.actor.ActorRef;
 import akka.pattern.Patterns;
+import com.jnasir.akka.Models.FilmAddMessage;
+import com.jnasir.akka.Models.FilmModel;
 import com.jnasir.akka.Models.Films;
 import com.jnasir.akka.messages.filmMessageBox.FilmGetMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.time.Duration;
 import java.util.ArrayList;
 
@@ -47,6 +52,38 @@ public class FilmController {
         return modelAndView;
     }
 
+    @GetMapping("/create") // Get All films
+    public ModelAndView addFilms() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("add_film"); // resources/template/register.html
+        return modelAndView;
+    }
+
+
+    @RequestMapping(value="/add", method=RequestMethod.POST)
+    public ModelAndView addNewFilm(@Valid Films film, BindingResult bindingResult, ModelMap modelMap) {
+
+        //   public ModelAndView addNewFilm(@Valid ArrayList<FilmModel> films, BindingResult bindingResult, ModelMap modelMap) {
+        ModelAndView modelAndView = new ModelAndView();
+        // Check for the validations
+        // Check for the validations
+        if(bindingResult.hasErrors()) {
+            modelAndView.addObject("successMessage", "Please correct the errors in form!");
+            modelMap.addAttribute("bindingResult", bindingResult);
+        }else{
+            Object res = Patterns.ask(filmActor, new FilmAddMessage(film), Duration.ofMillis(2000)).toCompletableFuture().join();
+            modelAndView.addObject("successMessage", "Film is added successfully!");
+        }
+
+
+
+        modelAndView.addObject("film", new FilmModel());
+        modelAndView.setViewName("add_film");
+        return modelAndView;
+
+
+    }
+
  /*
     @RequestMapping(method = RequestMethod.GET, value = "/{id}") // Get film by Id
     public ModelAndView getFilm(@PathVariable Integer id) {
@@ -57,27 +94,9 @@ public class FilmController {
         return modelAndView;
     }
 
-    @GetMapping("/create") // Get All films
-    public ModelAndView addFilms() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("add_film"); // resources/template/register.html
-        return modelAndView;
-    }
 
 
-    @RequestMapping(value="/add", method=RequestMethod.POST)
-    public ModelAndView addNewFilm(@Valid FilmModel film, BindingResult bindingResult, ModelMap modelMap) {
 
-     //   public ModelAndView addNewFilm(@Valid ArrayList<FilmModel> films, BindingResult bindingResult, ModelMap modelMap) {
-        ModelAndView modelAndView = new ModelAndView();
-        // Check for the validations
-        Films films = (Films) Patterns.ask(filmActor, new FilmAddMessage(film), Duration.ofMillis(2000)).toCompletableFuture().join();
-        modelAndView.addObject("successMessage", "Film is added successfully!");
-
-        modelAndView.addObject("film", new FilmModel());
-        modelAndView.setViewName("add_film");
-        return modelAndView;
-    }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/add/{id}") // Update a Film
     public Object updateFilm(@RequestBody FilmModel filmModel, @PathVariable String id) throws URISyntaxException {

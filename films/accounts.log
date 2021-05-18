@@ -1,0 +1,23 @@
+00:46:26 WARN  [] - Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+00:46:27 WARN  [] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+00:46:32 WARN  [] - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+00:46:51 WARN  [] - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' not supported]
+00:47:19 WARN  [] - Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+00:47:21 WARN  [] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+00:48:13 WARN  [] - Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+00:48:15 WARN  [] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+00:48:33 WARN  [] - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+00:54:32 WARN  [] - Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+00:54:33 WARN  [] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+00:54:50 WARN  [] - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+00:55:50 WARN  [] - Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+00:55:52 WARN  [] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+01:13:05 WARN  [] - Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+01:13:07 WARN  [] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+01:14:55 WARN  [] - Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+01:14:56 WARN  [] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+01:15:33 WARN  [] - Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+01:15:34 WARN  [] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+01:16:10 WARN  [] - Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+01:16:11 WARN  [] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+01:17:12 WARN  [] - Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.

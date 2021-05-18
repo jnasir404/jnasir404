@@ -10,7 +10,7 @@ public class FilmModel {
     private String description;
     private String release_Date;
     private String rating;
-    private String ticketPrice;
+    private String ticket_price;
     private String country;
     private String genre;
     private String photo;
@@ -64,11 +64,11 @@ public class FilmModel {
     }
 
     public String getTicketPrice() {
-        return ticketPrice;
+        return ticket_price;
     }
 
     public void setTicketPrice(String ticketPrice) {
-        this.ticketPrice = ticketPrice;
+        this.ticket_price = ticketPrice;
     }
 
     public String getCountry() {
@@ -104,7 +104,7 @@ public class FilmModel {
         this.description = description;
         this.release_Date = release_Date;
         this.rating = rating;
-        this.ticketPrice = ticketPrice;
+        this.ticket_price = ticketPrice;
         this.country = country;
         this.genre = genre;
         this.photo = photo;

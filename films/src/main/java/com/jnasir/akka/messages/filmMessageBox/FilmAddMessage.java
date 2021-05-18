@@ -5,6 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.Valid;
 
 public class FilmAddMessage {
 
@@ -18,6 +19,7 @@ public class FilmAddMessage {
     private String country;
     private String genre;
     private String photo;
+
 
 
     public Integer getId() {
@@ -114,4 +116,20 @@ public class FilmAddMessage {
         this.genre = genre;
         this.photo = photo;
     }
+
+    public FilmAddMessage(Films film) {
+        super();
+        this.id = film.getId();
+        this.userid= film.getUserid();
+        this.name = film.getName();
+        this.description = film.getDescription();
+        this.release_Date = film.getRelease_Date();
+        this.rating = film.getRating();
+        this.ticketPrice = film.getTicketPrice();
+        this.country = film.getCountry();
+        this.genre = film.getGenre();
+        this.photo = film.getPhoto();
+
+    }
+
 }
