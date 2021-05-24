@@ -1,7 +1,7 @@
 package com.jnasir.akka.services;
 
 
-import com.jnasir.akka.Models.User;
+import com.jnasir.akka.Models.UserModels.User;
 
 import java.util.List;
 

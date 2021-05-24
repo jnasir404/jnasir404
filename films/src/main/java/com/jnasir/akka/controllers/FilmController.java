@@ -2,9 +2,12 @@ package com.jnasir.akka.controllers;
 
 import akka.actor.ActorRef;
 import akka.pattern.Patterns;
+import com.jnasir.akka.Models.CommentsModel.Comments;
 import com.jnasir.akka.Models.FilmAddMessage;
-import com.jnasir.akka.Models.FilmModel;
-import com.jnasir.akka.Models.Films;
+import com.jnasir.akka.Models.FilmModels.FilmModel;
+import com.jnasir.akka.Models.FilmModels.Films;
+import com.jnasir.akka.messages.filmMessageBox.FilmAddCommentMessage;
+import com.jnasir.akka.messages.filmMessageBox.FilmGetCommentMessage;
 import com.jnasir.akka.messages.filmMessageBox.FilmGetMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.time.Duration;
-import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/films")
@@ -27,7 +29,7 @@ public class FilmController {
     ActorRef filmActor;
 
 
-    @GetMapping("/seedFilms") // Get All films
+    @GetMapping("/seedFilms") //For Test Add films
     public Object getAllFilmsFromDB() {
         Object result = Patterns.ask(filmActor, new Films(), Duration.ofMillis(2000)).toCompletableFuture().join();
         return result;
@@ -47,12 +49,15 @@ public class FilmController {
     public ModelAndView getFilm(@PathVariable String id) {
         ModelAndView modelAndView = new ModelAndView();
         Object film = Patterns.ask(filmActor, new FilmGetMessage(id), Duration.ofMillis(2000)).toCompletableFuture().join();
+        Object filmComments = Patterns.ask(filmActor, new FilmGetCommentMessage(id), Duration.ofMillis(2000)).toCompletableFuture().join();
+
         modelAndView.addObject("f", film);
+        modelAndView.addObject("c", filmComments);
         modelAndView.setViewName("film"); // resources/template/register.html
         return modelAndView;
     }
 
-    @GetMapping("/create") // Get All films
+    @GetMapping("/create") // Create Film
     public ModelAndView addFilms() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("add_film"); // resources/template/register.html
@@ -60,13 +65,10 @@ public class FilmController {
     }
 
 
-    @RequestMapping(value="/add", method=RequestMethod.POST)
+    @RequestMapping(value="/add", method=RequestMethod.POST) //save film
     public ModelAndView addNewFilm(@Valid Films film, BindingResult bindingResult, ModelMap modelMap) {
 
-        //   public ModelAndView addNewFilm(@Valid ArrayList<FilmModel> films, BindingResult bindingResult, ModelMap modelMap) {
         ModelAndView modelAndView = new ModelAndView();
-        // Check for the validations
-        // Check for the validations
         if(bindingResult.hasErrors()) {
             modelAndView.addObject("successMessage", "Please correct the errors in form!");
             modelMap.addAttribute("bindingResult", bindingResult);
@@ -75,49 +77,31 @@ public class FilmController {
             modelAndView.addObject("successMessage", "Film is added successfully!");
         }
 
-
-
         modelAndView.addObject("film", new FilmModel());
         modelAndView.setViewName("add_film");
         return modelAndView;
-
-
     }
 
- /*
-    @RequestMapping(method = RequestMethod.GET, value = "/{id}") // Get film by Id
-    public ModelAndView getFilm(@PathVariable Integer id) {
+    @RequestMapping(value="/comment", method=RequestMethod.POST) //Add comment
+    public ModelAndView addComment(@Valid Comments comment, BindingResult bindingResult, ModelMap modelMap) {
+
         ModelAndView modelAndView = new ModelAndView();
-        Object film = Patterns.ask(filmActor, new FilmGetMessage(id), Duration.ofMillis(2000)).toCompletableFuture().join();
+        if(bindingResult.hasErrors()) {
+            modelAndView.addObject("successMessage", "Please correct the errors in form!");
+            modelMap.addAttribute("bindingResult", bindingResult);
+        }else{
+            Object res = Patterns.ask(filmActor, new FilmAddCommentMessage(comment), Duration.ofMillis(2000)).toCompletableFuture().join();
+            modelAndView.addObject("successMessage", "Comment is added successfully!");
+        }
+
+        Object film = Patterns.ask(filmActor, new FilmGetMessage(comment.getFilm_id()), Duration.ofMillis(2000)).toCompletableFuture().join();
         modelAndView.addObject("f", film);
-        modelAndView.setViewName("film"); // resources/template/register.html
+
+        modelAndView.setViewName("film");
         return modelAndView;
+
+
     }
-
-
-
-
-
-    @RequestMapping(method = RequestMethod.PUT, value = "/add/{id}") // Update a Film
-    public Object updateFilm(@RequestBody FilmModel filmModel, @PathVariable String id) throws URISyntaxException {
-        try {
-            return Patterns.ask(filmActor, new FilmUpdateMessage(Films), Duration.ofMillis(2000)).toCompletableFuture().join();
-
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
-        }
-    }
-
-    @RequestMapping(method = RequestMethod.DELETE, value = "/delete/{id}") // Delete a Film
-    public Object deleteFilm(@RequestBody FilmModel filmModel, @PathVariable String id) throws URISyntaxException {
-        try {
-            return Patterns.ask(filmActor, new FilmDeleteMessage(filmModel), Duration.ofMillis(2000)).toCompletableFuture().join();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
-        }
-    }
-
-    */
 
     private <T> T ask(ActorRef actor, Object msg, Class<T> returnTypeClass) {
         return (T) Patterns.ask(actor, msg, Duration.ofMillis(2000)).toCompletableFuture().join();

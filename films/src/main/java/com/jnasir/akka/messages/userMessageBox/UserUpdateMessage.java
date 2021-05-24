@@ -1,6 +1,6 @@
 package com.jnasir.akka.messages.userMessageBox;
 
-import com.jnasir.akka.Models.UserModel;
+import com.jnasir.akka.Models.UserModels.UserModel;
 
 public class UserUpdateMessage {
     private String id;

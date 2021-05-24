@@ -1,7 +1,5 @@
 package com.jnasir.akka.messages.filmMessageBox;
 
-import com.jnasir.akka.Models.FilmModel;
-
 public class FilmUpdateMessage {
 
     private Integer id;

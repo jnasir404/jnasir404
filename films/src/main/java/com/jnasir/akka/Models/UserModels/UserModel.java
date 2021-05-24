@@ -1,4 +1,4 @@
-package com.jnasir.akka.Models;
+package com.jnasir.akka.Models.UserModels;
 
 import org.springframework.stereotype.Service;
 

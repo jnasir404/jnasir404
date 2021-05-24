@@ -20,6 +20,10 @@
     <script src="js/ie-support/respond.js"></script>
     <![endif]-->
 
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
 </head>
 
 <body>
@@ -83,7 +87,7 @@
                             <td th:inline=text>[[${film.get('rating')}]]</td>
                             </p>
                             <p><b>Ticket Price:</b>
-                            <td th:inline=text>[[${film.get('ticketPrice')}]]</td>
+                            <td th:inline=text>[[${film.get('ticket_price')}]]</td>
                             </p>
                             <p><b>Country:</b>
                             <td th:inline=text>[[${film.get('country')}]]</td>
@@ -91,22 +95,73 @@
                             <p><b>Genre:</b>
                             <td th:inline=text>[[${film.get('genre')}]]</td>
                             </p>
+
                             <div class="contact-form">
-
-                                <textarea class="message" placeholder="comments..."></textarea>
-                                <input type="submit" value="Add Comment ">
-
+                                <form name="add-comment-form" th:action="@{/films/comment}" th:object="${comment}"
+                                      onsubmit="return formValidate()" method="post">
+                                    <textarea class="message" th:placeholder="comment" name="comment"></textarea>
+                                    <input type="hidden" th:value="${film.get('id')}" th:attr="name='film_id'"/>
+                                    <input type="submit" value="Add Comment " name="Submit">
+                                </form>
                             </div>
-                        </div>
                     </tr>
-
+                    <div class="panel panel-default widget">
+                        <div class="panel-heading">
+                            <!-- <span class="glyphicon glyphicon-comment"></span> -->
+                            <h3 class="panel-title">
+                                Recent Comments</h3>
+                            <span class="label label-info"></span>
+                        </div>
+                        <tr th:each="filmComments, custStat : ${c}">
+                            <div class="panel-body">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-xs-2 col-md-1">
+                                                <img src="http://placehold.it/80" class="img-circle img-responsive"
+                                                     alt=""/></div>
+                                            <div class="col-xs-10 col-md-11">
+                                                <div>
+                                                    <a href="#">
+                                                        <td th:inline=text>[[${filmComments.get('comment')}]]</td>
+                                                    </a>
+                                                    <div class="mic-info">
+                                                        By: <a href="#">
+                                                        <td th:inline=text>[[${filmComments.get('user_id')}]]</td>
+                                                    </a>
+                                                    </div>
+                                                </div>
+                                                <div class="comment-text">
+                                                    <td th:inline=text>[[${filmComments.get('comment')}]]</td>
+                                                    </a>
+                                                </div>
+                                                <div class="action">
+                                                    <!-- <button type="button" class="btn btn-primary btn-xs" title="Edit">
+                                                         <span class="glyphicon glyphicon-pencil"></span>
+                                                     </button>
+                                                     <button type="button" class="btn btn-success btn-xs" title="Approved">
+                                                         <span class="glyphicon glyphicon-ok"></span>
+                                                     </button>
+                                                     <button type="button" class="btn btn-danger btn-xs" title="Delete">
+                                                         <span class="glyphicon glyphicon-trash"></span>
+                                                     </button>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                    </div>
+                    </tr>
                 </div>
-
-                <div class="row">
-                </div> <!-- .row -->
-
             </div>
+
+
+            <div class="row">
+            </div> <!-- .row -->
+
         </div>
+</div>
 </div> <!-- .container -->
 </main>
 <footer class="site-footer">
@@ -183,6 +238,13 @@
 <script th:src="@{/css/js/jquery-1.11.1.min.js}"></script>
 <script th:src="@{/css/js/plugins.js}"></script>
 <script th:src="@{/css/js/app.js}"></script>
+
+<script>
+    function formValidate() {
+
+        return true;
+    }
+</script>
 
 </body>
 

@@ -2,7 +2,7 @@ package com.jnasir.akka.controllers;
 
 import akka.actor.ActorRef;
 import akka.pattern.Patterns;
-import com.jnasir.akka.Models.UserModel;
+import com.jnasir.akka.Models.UserModels.UserModel;
 import com.jnasir.akka.messages.userMessageBox.UserAddMessage;
 import com.jnasir.akka.messages.userMessageBox.UserDeleteMessage;
 import com.jnasir.akka.messages.userMessageBox.UserGetMessage;

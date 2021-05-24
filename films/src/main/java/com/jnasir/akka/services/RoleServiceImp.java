@@ -1,6 +1,6 @@
 package com.jnasir.akka.services;
 
-import com.jnasir.akka.Models.Role;
+import com.jnasir.akka.Models.UserModels.Role;
 import com.jnasir.akka.repository.RoleRepository;
 import com.jnasir.akka.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +24,5 @@ public class RoleServiceImp implements RoleService{
         roleRepository.findAll()
                 .forEach(role::add);
         return role;
-        //return roleRepository.findAll();
     }
 }

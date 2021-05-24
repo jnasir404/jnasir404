@@ -4,7 +4,7 @@ import akka.actor.AbstractActor;
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.japi.pf.ReceiveBuilder;
-import com.jnasir.akka.Models.UserModel;
+import com.jnasir.akka.Models.UserModels.UserModel;
 import com.jnasir.akka.messages.userMessageBox.UserAddMessage;
 import com.jnasir.akka.messages.userMessageBox.UserDeleteMessage;
 import com.jnasir.akka.messages.userMessageBox.UserGetMessage;
@@ -20,11 +20,7 @@ public class UserActor extends AbstractActor {
     private ActorRef sender;
 
     private List<UserModel> users = new ArrayList<>(Arrays.asList(
-            new UserModel("id", "name", "email", "password"),
-            new UserModel("id1", "name1", "email1", "password1"),
-            new UserModel("id2", "name2", "email2", "password2"),
-            new UserModel("id3", "name3", "email3", "password3")
-    ));
+            new UserModel("id", "name", "email", "password")));
 
     public static Props propsDefault() {
         return Props.create(UserActor.class);

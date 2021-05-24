@@ -1,7 +1,7 @@
 package com.jnasir.akka.services;
 
-import com.jnasir.akka.Models.Role;
-import com.jnasir.akka.Models.User;
+import com.jnasir.akka.Models.UserModels.Role;
+import com.jnasir.akka.Models.UserModels.User;
 import com.jnasir.akka.repository.RoleRepository;
 import com.jnasir.akka.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

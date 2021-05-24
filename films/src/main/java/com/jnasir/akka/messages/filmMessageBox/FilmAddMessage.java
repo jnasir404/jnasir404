@@ -1,11 +1,7 @@
 package com.jnasir.akka.Models;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.validation.Valid;
+import com.jnasir.akka.Models.FilmModels.Films;
 
 public class FilmAddMessage {
 

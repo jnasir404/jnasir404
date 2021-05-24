@@ -5,7 +5,7 @@
              version="2.1">
     <persistence-unit name="films-persistence-unit">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>com.jnasir.akka.Models.Films</class>
+        <class>com.jnasir.akka.Models.FilmModels.Films</class>
         <properties>
             <property name="javax.persistence.jdbc.drive" value="com.mysql.jdbc.Driver" />
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/films?useSSL=false" />

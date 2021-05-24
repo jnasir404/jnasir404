@@ -1,7 +1,7 @@
 package com.jnasir.akka.controllers;
 
 import akka.actor.ActorRef;
-import com.jnasir.akka.Models.User;
+import com.jnasir.akka.Models.UserModels.User;
 import com.jnasir.akka.services.RoleService;
 import com.jnasir.akka.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,13 +48,6 @@ public class AuthenticationController {
 		return modelAndView;
 	}
 
-	/*@RequestMapping(value = "/films", method = RequestMethod.GET)
-	public ModelAndView home() {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("film"); // resources/template/home.html
-		return modelAndView;
-	}*/
-	
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public ModelAndView adminHome() {
 		ModelAndView modelAndView = new ModelAndView();
